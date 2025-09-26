@@ -7,23 +7,22 @@ battery-powered, long-term deployments.
 
 <p align="center"><img src="./wakemod.png" width="400" /></p>
 
-An in-depth analysis of the hardware can be found here: [arXiv](https://arxiv.org/abs/2505.21529)
+An in-depth analysis of the hardware can be found here: [IEEE IWASI](http://dx.doi.org/10.1109/IWASI66786.2025.11122000) / [arXiv:2505.21529 (preprint)](https://arxiv.org/abs/2505.21529)
 
 > <div align="justify"> Large-scale IoT applications, such as asset tracking and remote sensing, demand multi-year battery lifetimes to minimize maintenance and operational costs. Traditional wireless protocols often employ duty cycling, introducing a tradeoff between latency and idle consumption -- both unsuitable for event-driven and ultra-low power systems. A promising approach to address these issues is the integration of always-on Wake-up Receivers (WuRs). They provide asynchronous, ultra-low power communication to overcome these constraints. This paper presents WakeMod, an open-source wake-up transceiver module for the 868 MHz ISM band. Designed for easy integration and ultra-low power consumption, it leverages the -75 dBm sensitive FH101RF WuR. WakeMod achieves a low idle power consumption of 6.9 µW while maintaining responsiveness with a sensitivity of -72.6 dBm. Reception of a wake-up call is possible from up to 130 m of distance with a -2.1 dBi antenna, consuming 17.7 µJ with a latency below 54.3 ms. WakeMod's capabilities have further been demonstrated in an e-ink price tag application, achieving 7.17 µW idle consumption and enabling an estimated 8-year battery life with daily updates on a standard CR2032 coin cell. WakeMod offers a practical solution for energy-constrained, long-term IoT deployments, requiring low-latency, and on-demand communication.</div>
 
 If you use *WakeMod* in an academic or industrial context, please cite the following publication:
 
 ```bibtex
-@misc{schultess25_wakem,
+@inproceedings{schultess25_wakem,
   author         = {Lukas Schulthess and Silvano Cortesi and Michele Magno},
   title          = {Wakemod: a 6.9uw Wake-Up Radio Module With -72.6dbm Sensitivity for On-Demand Iot},
   year           = 2025,
-  doi            = {10.48550/ARXIV.2505.21529},
-  url            = {https://arxiv.org/abs/2505.21529},
-  eprint         = {2505.21529},
-  archiveprefix  = {arXiv},
-  primaryclass   = {cs.NI},
-  DATE_ADDED     = {Sun Jun 1 12:42:45 2025},
+  month          = 7,
+  pages          = {1-6},
+  booktitle      = {2025 10th International Workshop on Advances in Sensors and Interfaces (IWASI)},
+  doi            = {10.1109/iwasi66786.2025.11122000},
+  url            = {http://dx.doi.org/10.1109/IWASI66786.2025.11122000},
 }
 ```
 
