@@ -139,7 +139,7 @@ bytes** of data from the module (Bytes 0-7 as defined in the table below).
 | Command / Register       | Value | Type  | Byte 0                     | Byte 1                     | Byte 2                | Byte 3                | Byte 4                    | Byte 5                      | Byte     6             | Byte 7             | Byte 8             | Byte 9             | Byte 10            |
 | :----------------------- | :---- | :---- | :------------------------- | :------------------------- | :-------------------- | :-------------------- | :------------------------ | :-------------------------- | :----------------- | :----------------- | :----------------- | :----------------- | :----------------- |
 | **WhoAmI**               | 0x00  | Read  | `0x42` (ID MSB)            | `0x42` (ID LSB)            | `0x00` (Padding)      | `0x00` (Padding)      | `0x00` (Padding)          | `0x00` (Padding)            | `0x00` (Padding)   | `0x00` (Padding)   | *N/A*              | *N/A*              | *N/A*              |
-| **SetupWuR**             | 0x01  | Write | Wake-up Addr [15:8]        | Wake-up Addr [7:0]         | Low     Data Rate (enum)  | Fast Data Rate (enum) | IRQ Source Mask           | Reserved `0x00`             | Reserved `0x00`    | Reserved `0x00`    | Reserved `0x00`    | Reserved `0x00`    | Reserved `0x00`    |
+| **SetupWuR**             | 0x01  | Write | Wake-up Addr [15:8]        | Wake-up Addr [7:0]         | Low     Data Rate (enum)  | Fast Data Rate (enum) | IRQ Source Mask           | (Active Branches<<2)|IDM_CTRL             | Reserved `0x00`    | Reserved `0x00`    | Reserved `0x00`    | Reserved `0x00`    | Reserved `0x00`    |
 | **SendWuC**              | 0x02  | Write | Wake-up Addr [15:8]        | Wake-up Addr [7:0]         | Low     Data Rate (enum)  | Fast Data Rate (enum) | Send Add. Data Flag (LSb)   | Add. Data [0]               | Add.     Data [1]      | Add. Data [2]      | Add. Data [3]      | Add. Data [4]      | Add. Data [5]      |
 | **IRQ Reason**           | 0x03  | Read  | IRQ Source Flags           | Recv Add. Data Flag (LSb)  | Received Data [0]     | Received Data [1]     | Received Data [2]         | Received Data [3]           | Received Data [4]  | Received Data [5]  | *N/A*              | *N/A*              | *N/A*              |
 
@@ -157,6 +157,7 @@ Total 8 data bytes.
 *   **Data Rate (enum):** See `phy_speed` Enum Values table below.
 *   **IRQ Source Mask/Flags:** See IRQ Source Bits table below. Bitmask used in `SetupWuR` (Byte 4) to 
 enable specific FH101RF interrupt sources, or flags indicating occurred interrupts in `IRQ Reason` (Byte 0).
+*   **(Active Branches << 2) | IDM_CTRL:** Bit [5:2]: Set the active Branch (strong|medium|weak). Bit [1:0]: IDM_CTRL (0b00: individual ID only, 0b01: Individual ID or Groupwise ID, 0b10: only broadcast ID, 0b11: Individual 16bit ID groupwise ID or broadcast ID.
 *   **Send Add. Data Flag (LSb):** Least Significant Bit of Byte 4 for `SendWuC`. `1` = Additional Data in     Bytes 5-10 (Add. Data [0-5]) is valid and should be sent. `0` = Additional Data is ignored (but bytes 5-10 
 must still be sent, typically as `0x00`).
 *   **Recv Add. Data Flag (LSb):** Least Significant Bit of Byte 1 for `IRQ Reason`. `1` = Received Data 
