@@ -64,7 +64,7 @@ fh101rf_err_t init_struct_fh101rf(struct fh101rf_h *dev) {
     dev->conf.idm_enable.match_bands.band_868 = true;
     dev->conf.idm_enable.match_bands.band_2g4 = false;
 
-    dev->conf.idm_ctrl.ctrl = FH101RF_CTRL_IND_ONLY;
+    dev->conf.idm_ctrl.ctrl = FH101RF_CTRL_IND_GROUP_BROAD;
 
     dev->conf.fifo_length.band_433 = FH101RF_FIFO_LEN_BIT16;
     dev->conf.fifo_length.band_868 = FH101RF_FIFO_LEN_BIT32;
@@ -470,6 +470,12 @@ bool handle_wakeup(enum wusrc wakeup_source) {
         memcpy(&fh101rf_dev.conf.irq_select.irq_select, &temp,
                sizeof(struct fh101rf_irq_select));
 
+        // Set WakeMod IDM_CTRL
+        fh101rf_dev.conf.idm_ctrl = fh101rf_idm_ctrl_unpack_be(&msg.data[5]);
+
+        // Set WakeMod Branch
+        uint8_t branch = msg.data[5] >> 2;
+        fh101rf_dev.conf.band_branch_ctrl.active_branches = fh101rf_branches_unpack_be(&branch);
         // Setup WuR with this settings
         fh101rf_err_t err = fh101rf_init(&fh101rf_dev);
         if (err != E_FH101RF_SUCCESS) {
